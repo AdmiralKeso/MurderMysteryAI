@@ -128,19 +128,54 @@ class GameSessionController extends Controller
         ]);
     }
 
+    public function leave(string $code): RedirectResponse
+    {
+        $gameSession = GameSession::where('code', $code)->first();
+
+        if ($gameSession) {
+            $player = $this->currentPlayer($gameSession);
+
+            if ($player) {
+                $wasHost = $player->is_host;
+                $player->delete();
+                $this->forgetPlayer($gameSession);
+
+                $remainingPlayer = $gameSession->players()->oldest()->first();
+
+                if (! $remainingPlayer) {
+                    $gameSession->delete();
+                } elseif ($wasHost) {
+                    $remainingPlayer->update(['is_host' => true]);
+                }
+            }
+        }
+
+        return redirect('/');
+    }
+
     private function rememberPlayer(GameSession $gameSession, SessionPlayer $player): void
     {
         session()->put("game_sessions.{$gameSession->id}.player_id", $player->id);
     }
 
-    private function isHost(GameSession $gameSession): bool
+    private function forgetPlayer(GameSession $gameSession): void
+    {
+        session()->forget("game_sessions.{$gameSession->id}.player_id");
+    }
+
+    private function currentPlayer(GameSession $gameSession): ?SessionPlayer
     {
         $playerId = session("game_sessions.{$gameSession->id}.player_id");
 
         if (! $playerId) {
-            return false;
+            return null;
         }
 
-        return $gameSession->players()->whereKey($playerId)->where('is_host', true)->exists();
+        return $gameSession->players()->whereKey($playerId)->first();
+    }
+
+    private function isHost(GameSession $gameSession): bool
+    {
+        return $this->currentPlayer($gameSession)?->is_host ?? false;
     }
 }

@@ -20,6 +20,7 @@ Route::post('/game/join', [GameSessionController::class, 'join'])->name('session
 Route::get('/game/session/{code}', [GameSessionController::class, 'show'])->name('session.show');
 Route::get('/game/session/{code}/players', [GameSessionController::class, 'players'])->name('session.players');
 Route::post('/game/session/{code}/start', [GameSessionController::class, 'start'])->name('session.start');
+Route::post('/game/session/{code}/leave', [GameSessionController::class, 'leave'])->name('session.leave');
 
 Route::get('/game/profile', function () {
     return view('profile');

@@ -118,4 +118,55 @@ class GameSessionTest extends TestCase
         $response->assertUnprocessable();
         $this->assertSame('lobby', $gameSession->fresh()->status);
     }
+
+    public function test_a_guest_leaving_removes_them_but_keeps_the_session(): void
+    {
+        $gameSession = GameSession::factory()->create();
+        $host = $gameSession->players()->create(['display_name' => 'Host', 'is_host' => true]);
+        $guest = $gameSession->players()->create(['display_name' => 'Guest', 'is_host' => false]);
+
+        $response = $this->withSession(["game_sessions.{$gameSession->id}.player_id" => $guest->id])
+            ->post(route('session.leave', $gameSession->code));
+
+        $response->assertRedirect('/');
+        $this->assertModelMissing($guest);
+        $this->assertTrue($host->fresh()->is_host);
+    }
+
+    public function test_the_host_leaving_promotes_another_player(): void
+    {
+        $gameSession = GameSession::factory()->create();
+        $host = $gameSession->players()->create(['display_name' => 'Host', 'is_host' => true]);
+        $guest = $gameSession->players()->create(['display_name' => 'Guest', 'is_host' => false]);
+
+        $response = $this->withSession(["game_sessions.{$gameSession->id}.player_id" => $host->id])
+            ->post(route('session.leave', $gameSession->code));
+
+        $response->assertRedirect('/');
+        $this->assertModelMissing($host);
+        $this->assertTrue($guest->fresh()->is_host);
+    }
+
+    public function test_the_last_player_leaving_deletes_the_session(): void
+    {
+        $gameSession = GameSession::factory()->create();
+        $host = $gameSession->players()->create(['display_name' => 'Host', 'is_host' => true]);
+
+        $response = $this->withSession(["game_sessions.{$gameSession->id}.player_id" => $host->id])
+            ->post(route('session.leave', $gameSession->code));
+
+        $response->assertRedirect('/');
+        $this->assertModelMissing($gameSession);
+    }
+
+    public function test_leaving_without_a_tracked_player_just_redirects_home(): void
+    {
+        $gameSession = GameSession::factory()->create();
+        $gameSession->players()->create(['display_name' => 'Host', 'is_host' => true]);
+
+        $response = $this->post(route('session.leave', $gameSession->code));
+
+        $response->assertRedirect('/');
+        $this->assertSame(1, $gameSession->players()->count());
+    }
 }
