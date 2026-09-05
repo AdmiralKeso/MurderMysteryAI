@@ -21,8 +21,8 @@
             <a href="{{ url('/game/new') }}" class="menu-btn primary">Create session</a>
             <a href="{{ url('/game/join') }}" class="menu-btn">Join Session</a>
             <a href="{{ url('/game/profile') }}" class="menu-btn">Profile</a>
-            <button type="button" class="menu-btn" onclick="document.getElementById('settings-panel').showModal()">Settings</button>
-            <button type="button" class="menu-btn" onclick="document.getElementById('credits-panel').showModal()">Credits</button>
+            <a href="{{ url('/game/settings') }}" class="menu-btn">Settings</a>
+            <a href="{{ url('/game/credits') }}" class="menu-btn">Credits</a>
         </nav>
 
         <footer class="meta">v0.1.0 &mdash; The Last Witness</footer>
