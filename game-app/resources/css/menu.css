@@ -220,6 +220,66 @@ form.page-form {
     border-color: var(--gold);
 }
 
+.field-error {
+    margin-top: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--blood-bright);
+}
+
+.room-code {
+    display: inline-block;
+    margin: 0.75rem 0 0;
+    padding: 0.5rem 1.1rem;
+    border: 1px solid var(--gold-dim);
+    letter-spacing: 0.2em;
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 1.1rem;
+}
+
+.player-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+    margin: 1.5rem 0;
+}
+
+.player-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid #3a332a;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.player-row .host-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+.room-status {
+    margin: 1.25rem 0;
+    font-style: italic;
+    color: var(--fog);
+}
+
+.room-status.error {
+    color: var(--blood-bright);
+    font-style: normal;
+}
+
+.connect-info {
+    margin-top: 0.5rem;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+}
+
 .stat-list {
     display: flex;
     flex-direction: column;

@@ -25,20 +25,28 @@
 
             <div class="field">
                 <label for="session-name">Session Name</label>
-                <input type="text" id="session-name" name="session_name" placeholder="The Blackwood Estate" required>
+                <input type="text" id="session-name" name="session_name" value="{{ old('session_name') }}" placeholder="The Blackwood Estate" required>
+                @error('session_name') <p class="field-error">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="field">
+                <label for="display-name">Your Name</label>
+                <input type="text" id="display-name" name="display_name" value="{{ old('display_name') }}" placeholder="Detective..." required>
+                @error('display_name') <p class="field-error">{{ $message }}</p> @enderror
             </div>
 
             <div class="field">
                 <label for="max-players">Max Players</label>
-                <input type="number" id="max-players" name="max_players" min="3" max="12" value="6" required>
+                <input type="number" id="max-players" name="max_players" min="3" max="12" value="{{ old('max_players', 6) }}" required>
+                @error('max_players') <p class="field-error">{{ $message }}</p> @enderror
             </div>
 
             <div class="field">
                 <label for="scenario">Scenario</label>
                 <select id="scenario" name="scenario">
-                    <option value="random">Random</option>
-                    <option value="manor">The Manor Murder</option>
-                    <option value="cruise">Death on the Cruise</option>
+                    <option value="random" @selected(old('scenario') === 'random')>Random</option>
+                    <option value="manor" @selected(old('scenario') === 'manor')>The Manor Murder</option>
+                    <option value="cruise" @selected(old('scenario') === 'cruise')>Death on the Cruise</option>
                 </select>
             </div>
 

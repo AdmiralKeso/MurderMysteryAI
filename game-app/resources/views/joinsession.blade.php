@@ -25,12 +25,14 @@
 
             <div class="field">
                 <label for="session-code">Session Code</label>
-                <input type="text" id="session-code" name="session_code" placeholder="e.g. RAVEN-4471" required>
+                <input type="text" id="session-code" name="session_code" value="{{ old('session_code') }}" placeholder="e.g. RAVEN-4471" required>
+                @error('session_code') <p class="field-error">{{ $message }}</p> @enderror
             </div>
 
             <div class="field">
                 <label for="display-name">Your Name</label>
-                <input type="text" id="display-name" name="display_name" placeholder="Detective..." required>
+                <input type="text" id="display-name" name="display_name" value="{{ old('display_name') }}" placeholder="Detective..." required>
+                @error('display_name') <p class="field-error">{{ $message }}</p> @enderror
             </div>
 
             <button type="submit" class="menu-btn primary">Join Session</button>
