@@ -160,6 +160,112 @@ footer.meta {
     text-transform: uppercase;
 }
 
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.75rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fog);
+    text-decoration: none;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+    color: var(--gold);
+}
+
+p.subtitle {
+    margin-top: 0.6rem;
+    font-style: italic;
+    color: var(--fog);
+    font-size: 1rem;
+}
+
+form.page-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    text-align: left;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+}
+
+.field input,
+.field select,
+.field textarea {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    background: #100e0c;
+    border: 1px solid #3a332a;
+    color: var(--parchment);
+    font-family: 'Crimson Text', serif;
+    font-size: 1rem;
+    transition: border-color 0.25s ease;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+}
+
+.stat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    text-align: left;
+    margin: 1.5rem 0;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid #3a332a;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.stat-row .stat-label {
+    color: var(--fog);
+    letter-spacing: 0.04em;
+}
+
+.stat-row .stat-value {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.credits-block {
+    text-align: left;
+    margin: 1.5rem 0;
+}
+
+.credits-block h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+}
+
+.credits-block p {
+    color: var(--fog);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+}
+
 /* Simple modal for future settings/credits panels */
 dialog.panel {
     border: 1px solid var(--gold-dim);
